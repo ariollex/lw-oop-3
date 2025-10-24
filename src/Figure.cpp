@@ -27,6 +27,7 @@ std::istream& operator>>(std::istream& inputStream, Figure& figure) {
     for (size_t i = 0; i < figure.n; ++i) {
         inputStream >> figure.vertices[i];
     }
+    if (!figure.Validate()) throw std::invalid_argument("Wrong points!");
     return inputStream;
 }
 
@@ -37,6 +38,17 @@ std::ostream& operator<<(std::ostream& outputStream, const Figure& figure) {
     return outputStream;
 }
 
+bool Figure::Validate() {
+    SortVertices();
+    if (n < 3) return false;
+    double random_side = vertices[0].LenghtToPoint(vertices[1]);
+    if (std::abs(random_side) < EPS) return false;
+    for(int i = 0; i < n; ++i) {
+        if (std::abs(vertices[i].LenghtToPoint(vertices[(i + 1) % n]) - random_side) > EPS) return false; 
+    }
+    if (vertices[0].LenghtToPoint(vertices[2]) < EPS || vertices[1].LenghtToPoint(vertices[3]) < EPS) return false;
+    return true;
+}
 
 void Figure::SortVertices() {
     Point c = getCenter();

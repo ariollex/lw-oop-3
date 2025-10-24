@@ -21,15 +21,16 @@ set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 include_directories(${INCLUDE_DIR})
 
 # Build
+add_library(Array_lib src/Array.cpp)
 add_library(Point_lib src/Point.cpp)
 add_library(Figure_lib src/Figure.cpp)
 add_library(Rhomb_lib src/rhomb.cpp)
 add_library(Pentagon_lib src/pentagon.cpp)
 add_library(Hexagon_lib src/hexagon.cpp)
 add_executable(Figures_exe main.cpp)
-target_link_libraries(Figures_exe PRIVATE Figure_lib Point_lib Rhomb_lib Pentagon_lib Hexagon_lib)
+target_link_libraries(Figures_exe PRIVATE Figure_lib Point_lib Rhomb_lib Pentagon_lib Hexagon_lib Array_lib)
 
 # Build Tests
 enable_testing()
 add_executable(Figures_tests test/tests.cpp)
-target_link_libraries(Figures_tests Figure_lib Point_lib Rhomb_lib Pentagon_lib Hexagon_lib gtest_main)
+target_link_libraries(Figures_tests Figure_lib Point_lib Rhomb_lib Pentagon_lib Hexagon_lib Array_lib gtest_main)
