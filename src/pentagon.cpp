@@ -17,13 +17,7 @@ Pentagon::Pentagon(const Point& p1, const Point& p2, const Point& p3, const Poin
 
     SortVertices();
 
-    if (std::abs(vertices[0].LenghtToPoint(vertices[1])) < EPS) throw std::invalid_argument("Wrong Pentagon!");
-    for(int i = 0; i < n; ++i) { //фигура д.б. равносторонней по условию
-        if (std::abs(vertices[i].LenghtToPoint(vertices[(i + 1) % n]) - vertices[(i + 1) % n].LenghtToPoint(vertices[(i + 2) % n])) > EPS) {
-            throw std::invalid_argument("Wrong Pentagon!"); 
-        }
-    }
-    if (vertices[0].LenghtToPoint(vertices[2]) < EPS || vertices[1].LenghtToPoint(vertices[3]) < EPS) throw std::invalid_argument("Wrong Pentagon!"); 
+    if (!Validate()) throw std::invalid_argument("Wrong Pentagon!"); 
 }
 
 Pentagon::Pentagon(const Pentagon& other) {

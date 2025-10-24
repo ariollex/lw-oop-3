@@ -14,6 +14,7 @@ public:
     friend std::istream& operator>>(std::istream& inputStream, Figure& figure);
     friend std::ostream& operator<<(std::ostream& outputStream, const Figure& figure);
 
+    bool Validate();
     void SortVertices();
 
     virtual ~Figure();
